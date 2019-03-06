@@ -57,8 +57,6 @@ public class Game implements Runnable
 		//clear screen
 		g.clearRect(0, 0, width, height);
 		//drawings:
-		g.drawImage(Assets.player, 10, 10, null);
-		
 		
 	
 		
@@ -70,7 +68,7 @@ public class Game implements Runnable
 	{
 		display = new Display(title,width,height);
 
-		Assets.init();
+		
 	}
 	
 	public void run()

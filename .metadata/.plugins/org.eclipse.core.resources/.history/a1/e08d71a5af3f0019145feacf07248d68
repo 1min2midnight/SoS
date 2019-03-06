@@ -1,0 +1,15 @@
+package dev.demian.sos;
+
+import java.awt.image.BufferedImage;
+
+public class Assets {
+	
+	public static BufferedImage player, floor, wall, door;
+	
+	public static void init()
+	{
+		SpriteSheet sheet = new SpriteSheet(ImageLoader.loadImage("/textures/Dungeon_Tileset.png"));
+		
+	}
+
+}

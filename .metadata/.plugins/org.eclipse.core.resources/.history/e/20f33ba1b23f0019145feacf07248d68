@@ -1,0 +1,21 @@
+package dev.demian.sos;
+
+import java.awt.image.BufferedImage;
+
+public class Assets {
+	
+	private static final int width= 16;
+	private static final int height =16;
+	public static BufferedImage player, floor, wall, door;
+	
+	public static void init()
+	{
+		SpriteSheet sheet = new SpriteSheet(ImageLoader.loadImage("/textures/Dungeon_Character.png"));
+		
+		floor = sheet.crop(6*width, 0, width, height);
+		wall = sheet.crop(2*width, 0, width, height);
+		door = sheet.crop(4*width,4*height,width,height);
+		
+	}
+
+}

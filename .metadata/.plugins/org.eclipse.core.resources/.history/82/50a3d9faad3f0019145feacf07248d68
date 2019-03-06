@@ -24,7 +24,10 @@ public class Game implements Runnable
 	private BufferStrategy bs;
 	private Graphics g;
 	
-
+	//test code:
+	private BufferedImage testImage;
+	
+	private SpriteSheet sheet;
 	
 	public Game(String title, int width, int height)
 	{
@@ -57,10 +60,9 @@ public class Game implements Runnable
 		//clear screen
 		g.clearRect(0, 0, width, height);
 		//drawings:
-		g.drawImage(Assets.player, 10, 10, null);
 		
-		
-	
+		//g.fillRect(3, 2, 50, 50);
+		g.drawImage(sheet.crop(0, 16, 16, 16),20,20,null);
 		
 		//end of drawings
 		bs.show();
@@ -69,8 +71,9 @@ public class Game implements Runnable
 	private void init() 
 	{
 		display = new Display(title,width,height);
-
-		Assets.init();
+		testImage = ImageLoader.loadImage("/textures/Dungeon_Character.png");
+		sheet = new SpriteSheet(testImage);
+		
 	}
 	
 	public void run()
