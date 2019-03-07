@@ -1,9 +1,12 @@
 package dev.demian.sos;
 
+import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
+
+import javax.swing.JPanel;
 
 public class Game implements Runnable
 {
@@ -21,8 +24,7 @@ public class Game implements Runnable
 	private BufferStrategy bs;
 	private Graphics g;
 	
-	//test code:
-	private BufferedImage testImage;
+
 	
 	public Game(String title, int width, int height)
 	{
@@ -33,6 +35,9 @@ public class Game implements Runnable
 		
 		
 	}
+	
+	//temp code:
+	int x=0;
 	private void tick()
 	{
 		
@@ -55,13 +60,20 @@ public class Game implements Runnable
 		//clear screen
 		g.clearRect(0, 0, width, height);
 		//drawings:
-		g.drawImage(testImage,60,70,null);
+		g.drawImage(Assets.player, 10, 10, null);
+		
+		
+	
+		
+		//end of drawings
+		bs.show();
+		g.dispose();
 	}
 	private void init() 
 	{
-		display = new Display(title,width,height);
-		testImage = ImageLoader.loadImage("/textures/test.jpg");
-		
+		display = new Display(title,x,height);
+
+		Assets.init();
 	}
 	
 	public void run()

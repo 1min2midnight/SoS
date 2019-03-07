@@ -35,8 +35,12 @@ public class Game implements Runnable
 		
 		
 	}
+	
+	//temp code:
+	int x=0;
 	private void tick()
 	{
+		x+= 1;
 		
 		
 	}
@@ -57,7 +61,7 @@ public class Game implements Runnable
 		//clear screen
 		g.clearRect(0, 0, width, height);
 		//drawings:
-		g.drawImage(Assets.player, 10, 10, null);
+		g.drawImage(Assets.player, x, 10, null);
 		
 		
 	
@@ -75,12 +79,53 @@ public class Game implements Runnable
 	
 	public void run()
 	{
+		
+		
 		init();
+		
+		int fps =60;
+		
+		//one billion nano seconds in one second
+		double timePerTick= 1000000000/fps;
+		double delta =0;
+		long now;
+		
+		
+		long lastTime = System.nanoTime();
+		
+		long timer=0;
+		int ticks=0;
+		
 		while(running)
 		{
-			tick();
-			render();
+			now =System.nanoTime();
 			
+			//delta variable comes up with how much time has passed since the init method is called and divides it by the equivalent of 60 seconds in nano seconds 
+			delta+=(now - lastTime)/timePerTick;
+			
+			timer+= now-lastTime;
+			
+			
+			//last time then becomes now because one tick has passed
+			lastTime =now;
+			
+			//if at any point delta reaches the same value as the equivalent of 60 seconds in 
+			//nano seconds then tick and render
+			if(delta>=1) 
+			{
+				tick();
+				render();
+				
+				ticks++;
+				delta--;
+			}
+			if(timer>=1000000000)
+			{
+				System.out.println("Ticks and Frames: "+ticks);
+				ticks =0;
+				timer=0;
+				
+			}
 		}
 		stop();
 	}
