@@ -27,7 +27,6 @@ public class Game implements Runnable
 	//states
 	
 	private State gameState;
-	private State menuState;
 	
 	
 	public Game(String title, int width, int height)
@@ -85,7 +84,6 @@ public class Game implements Runnable
 		Assets.init();
 		//substitution principle
 		gameState = new GameState();
-		menuState = new MenuState();
 		
 		State.setState(gameState);
 		

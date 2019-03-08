@@ -1,0 +1,29 @@
+package dev.demian.sos;
+
+import java.awt.Graphics;
+
+public class GameState extends State {
+	
+	private Player player;
+	
+	public GameState()
+	{
+		player = new Player(100,100);
+	}
+
+	@Override
+	public void tick() {
+	player.tick();
+		
+	}
+
+	@Override
+	public void render(Graphics g) {
+		
+		g.drawImage(Assets.player, 0, 0, 16, 16, null);
+		player.render(g);
+		
+	}
+
+	
+}

@@ -1,0 +1,5 @@
+package dev.demian.sos;
+
+public class Creature extends Entity {
+
+}

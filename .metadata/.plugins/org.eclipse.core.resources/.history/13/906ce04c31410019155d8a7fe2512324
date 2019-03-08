@@ -27,7 +27,6 @@ public class Game implements Runnable
 	//states
 	
 	private State gameState;
-	private State menuState;
 	
 	
 	public Game(String title, int width, int height)
@@ -40,13 +39,11 @@ public class Game implements Runnable
 		
 	}
 	
-
+	//temp code:
+	int x=0;
 	private void tick()
 	{
-		if(State.getState() != null)
-		
-			State.getState().tick();
-		
+		x+= 1;
 		
 		
 	}
@@ -67,9 +64,7 @@ public class Game implements Runnable
 		//clear screen
 		g.clearRect(0, 0, width, height);
 		//drawings:
-		if(State.getState() != null)
-			
-			State.getState().render(g);
+		g.drawImage(Assets.player, x, 10, null);
 		
 		
 	
@@ -83,11 +78,8 @@ public class Game implements Runnable
 		display = new Display(title,width,height);
 
 		Assets.init();
-		//substitution principle
-		gameState = new GameState();
-		menuState = new MenuState();
 		
-		State.setState(gameState);
+		gameState = new GameState();
 		
 	}
 	

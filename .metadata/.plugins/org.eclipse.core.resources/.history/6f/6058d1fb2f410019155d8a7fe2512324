@@ -1,0 +1,6 @@
+package dev.demian.sos;
+
+public class GameState extends State {
+
+	
+}
