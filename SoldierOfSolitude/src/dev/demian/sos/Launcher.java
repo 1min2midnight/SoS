@@ -1,6 +1,6 @@
 package dev.demian.sos;
 
-
+//launches the game
 public class Launcher {
 
 	public static void main(String[] args) {

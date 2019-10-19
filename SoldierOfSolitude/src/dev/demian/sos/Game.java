@@ -13,8 +13,8 @@ public class Game implements Runnable
 	private Display display;
 	
 	public String title;
-	public int width;
-	public int height;
+	private int width;
+	private int height;
 	
 	
 	
@@ -24,25 +24,41 @@ public class Game implements Runnable
 	private BufferStrategy bs;
 	private Graphics g;
 	
+	
+	//input
+	private KeyManager keyManager; 
+	
+	
+	//camera
+	
+	private GameCamera gameCamera;
+	
 	//states
 	
 	private State gameState;
 	private State menuState;
 	
+	//handler
 	
+	private Handler handler;
+	
+	//constructor
 	public Game(String title, int width, int height)
 	{
 		this.title = title;
 		this.width = width;
 		this.height = height;
 		
+		keyManager = new KeyManager();
 		
 		
 	}
 	
-
+	//this method ensures that all states are syncrhonized
 	private void tick()
 	{
+		
+		keyManager.tick();
 		if(State.getState() != null)
 		
 			State.getState().tick();
@@ -50,6 +66,22 @@ public class Game implements Runnable
 		
 		
 	}
+	public int getHeight()
+	{
+		return height;
+	}
+	public int getWidth()
+	{
+		
+		return width;
+	}
+	
+	public GameCamera getGameCamera()
+	{
+		return gameCamera;
+		
+	}
+	//renders all graphics to the screen
 	private void render()
 	{
 		bs = display.getCanvas().getBufferStrategy();
@@ -75,22 +107,30 @@ public class Game implements Runnable
 	
 		
 		//end of drawings
+		
 		bs.show();
 		g.dispose();
 	}
+	
+	
+	//initializes the display and states needed for the game
 	private void init() 
 	{
 		display = new Display(title,width,height);
-
+		display.getJFrame().addKeyListener(keyManager);
 		Assets.init();
+		
+		handler = new Handler(this);
+		gameCamera = new GameCamera(handler,0,0);
+		
 		//substitution principle
-		gameState = new GameState();
-		menuState = new MenuState();
+		gameState = new GameState(handler);
+		menuState = new MenuState(handler);
 		
 		State.setState(gameState);
 		
 	}
-	
+	//required for the thread keeps everything synchronized
 	public void run()
 	{
 		
@@ -143,6 +183,13 @@ public class Game implements Runnable
 		}
 		stop();
 	}
+	//key manager
+	public KeyManager getKeyManager()
+	{
+		
+		return keyManager;
+	}
+	//checks if thread is running 
 	public synchronized void start()
 	{
 		if(running)
@@ -151,6 +198,7 @@ public class Game implements Runnable
 		thread = new Thread(this);
 		thread.start();
 	}
+	//if the thread is not running then it will ensure that it stops
 	public synchronized void stop() 
 	{
 		if(running == false)
